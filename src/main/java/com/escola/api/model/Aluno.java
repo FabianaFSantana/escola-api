@@ -1,4 +1,4 @@
-package com.esolca.api.model;
+package com.escola.api.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;

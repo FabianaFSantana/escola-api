@@ -1,4 +1,4 @@
-package com.esolca.api.model;
+package com.escola.api.model;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
