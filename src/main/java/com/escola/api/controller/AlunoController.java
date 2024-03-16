@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,5 +42,27 @@ public class AlunoController {
         .body(alunoRepository.findById(idAluno));
        
     }
+
+    @PutMapping("/{idAluno}")
+    public ResponseEntity<Aluno> atualizarDadosAluno(@PathVariable("idAluno") Long idAluno, @RequestBody Aluno aluno) {
+        Optional<Aluno> alunoOptional = alunoRepository.findById(idAluno);
+
+        if (alunoOptional.isPresent()) {
+            Aluno alunoAtualizado = alunoOptional.get();
+
+            alunoAtualizado.getUsuarioAluno().setNome(aluno.getUsuarioAluno().getNome());
+            alunoAtualizado.getUsuarioAluno().setDataDeNascimento(aluno.getUsuarioAluno().getDataDeNascimento());
+            alunoAtualizado.getUsuarioAluno().setEmail(aluno.getUsuarioAluno().getEmail());
+            alunoAtualizado.getUsuarioAluno().setTelefone(aluno.getUsuarioAluno().getTelefone());
+            alunoAtualizado.setMatricula(aluno.getMatricula());
+
+            return ResponseEntity.status(HttpStatus.OK)
+            .body(alunoRepository.save(alunoAtualizado));
+
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+    
     
 }
