@@ -1,8 +1,11 @@
 package com.escola.api.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +25,12 @@ public class AlunoController {
     public ResponseEntity<Aluno> cadastrarAluno(@RequestBody Aluno aluno) {
         return ResponseEntity.status(HttpStatus.CREATED)
         .body(alunoRepository.save(aluno));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Aluno>> alunos() {
+        return ResponseEntity.status(HttpStatus.OK)
+        .body(alunoRepository.findAll());
     }
     
 }
