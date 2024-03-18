@@ -62,10 +62,5 @@ public class TurmaController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/{idTurma}")
-    public ResponseEntity<String> excluirTurma(@PathVariable("idTurma") Long idTurma) {
-        turmaRepository.deleteById(idTurma);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT)
-        .body("Turma excluída com sucesso!");
-    }
+    
 }
