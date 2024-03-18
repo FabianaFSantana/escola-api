@@ -1,11 +1,13 @@
 package com.escola.api.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,5 +33,11 @@ public class TurmaController {
     public ResponseEntity<List<Turma>> exibirListaDeTurmas() {
         return ResponseEntity.status(HttpStatus.OK)
         .body(turmaRepository.findAll());
+    }
+
+    @GetMapping("/{idTurma}")
+    public ResponseEntity<Optional<Turma>> localizarTurmaPeloId(@PathVariable("idTurma") Long idTurma) {
+        return ResponseEntity.status(HttpStatus.OK)
+        .body(turmaRepository.findById(idTurma));
     }
 }
