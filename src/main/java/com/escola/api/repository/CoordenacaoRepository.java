@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.escola.api.model.Coordenacao;
 
 @Repository
-public interface CoordenaçãoRepository extends JpaRepository<Coordenacao, Long> {
+public interface CoordenacaoRepository extends JpaRepository<Coordenacao, Long> {
 
     
 }
