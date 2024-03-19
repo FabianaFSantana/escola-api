@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +40,28 @@ public class ResponsavelController {
     public ResponseEntity<Optional<Responsavel>> buscarResponsavelPeloId(@PathVariable("id") Long id) {
         return ResponseEntity.status(HttpStatus.OK)
         .body(responsavelRepository.findById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Responsavel> atualizarDadosDoResponsavel(@PathVariable("id") Long id,
+    @RequestBody Responsavel responsavel) {
+        Optional<Responsavel> respOptional = responsavelRepository.findById(id);
+
+        if (respOptional.isPresent()) {
+            Responsavel responsavelEncontrado = respOptional.get();
+
+            responsavelEncontrado.getUsuarioResponsavel().setNome(responsavel.getUsuarioResponsavel().getNome());
+            responsavelEncontrado.getUsuarioResponsavel().setDataDeNascimento(responsavel.getUsuarioResponsavel().getDataDeNascimento());
+            responsavelEncontrado.getUsuarioResponsavel().setEmail(responsavel.getUsuarioResponsavel().getEmail());
+            responsavelEncontrado.getUsuarioResponsavel().setTelefone(responsavel.getUsuarioResponsavel().getTelefone());
+            responsavelEncontrado.setCpfResponsavel(responsavel.getCpfResponsavel());
+
+            return ResponseEntity.status(HttpStatus.OK)
+            .body(responsavelRepository.save(responsavelEncontrado));
+            
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 
