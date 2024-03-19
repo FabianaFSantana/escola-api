@@ -5,10 +5,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +42,28 @@ public class CoodenacaoController {
     public ResponseEntity<Optional<Coordenacao>> buscarCoordenadorPeloId(@PathVariable("idCoordenacao") Long idCoordenacao) {
         return ResponseEntity.status(HttpStatus.OK)
         .body(coordenacaoRepository.findById(idCoordenacao));
+    }
+
+    @PutMapping("/{idCoordenacao}")
+    public ResponseEntity<Coordenacao> atualizarDadosDoCoordenador(@PathVariable("idCoordenacao") Long idCoordenacao,
+    @RequestBody Coordenacao coordenacao) {
+        Optional<Coordenacao> coordOptional = coordenacaoRepository.findById(idCoordenacao);
+
+        if (coordOptional.isPresent()) {
+            Coordenacao coordenadorEscontrado = coordOptional.get();
+
+            coordenadorEscontrado.getUsuarioCoordenador().setNome(coordenacao.getUsuarioCoordenador().getNome());
+            coordenadorEscontrado.getUsuarioCoordenador().setDataDeNascimento(coordenacao.getUsuarioCoordenador().getDataDeNascimento());
+            coordenadorEscontrado.getUsuarioCoordenador().setEmail(coordenacao.getUsuarioCoordenador().getEmail());
+            coordenadorEscontrado.getUsuarioCoordenador().setTelefone(coordenacao.getUsuarioCoordenador().getTelefone());
+            coordenadorEscontrado.setArea(coordenacao.getArea());
+
+            return ResponseEntity.status(HttpStatus.OK)
+            .body(coordenacaoRepository.save(coordenadorEscontrado));
+            
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     
