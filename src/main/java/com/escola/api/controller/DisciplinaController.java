@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,7 +42,23 @@ public class DisciplinaController {
         .body(disciplinaRepository.findById(idDisciplina));
     }
 
-    
+    @PutMapping("/{idDisciplina}")
+    public ResponseEntity<Disciplina> atualizarDadosDaDisciplina(@PathVariable("idDisciplina") Long idDisciplina,
+    @RequestBody Disciplina disciplina) {
+        Optional<Disciplina> discipOptional = disciplinaRepository.findById(idDisciplina);
+        
+        if (discipOptional.isPresent()) {
+            Disciplina discipEncontrada = discipOptional.get();
+
+            discipEncontrada.setNomeDisciplina(disciplina.getNomeDisciplina());
+
+            return ResponseEntity.status(HttpStatus.OK)
+            .body(disciplinaRepository.save(discipEncontrada));
+
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     
 
