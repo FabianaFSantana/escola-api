@@ -18,7 +18,11 @@ public class BoletimController {
     @Autowired
     private BoletimRepository boletimRepository;
 
-   
+    @PostMapping
+    public ResponseEntity<Boletim> cadastarDadosNoBoletim(@RequestBody Boletim boletim) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+        .body(boletimRepository.save(boletim));
+    }
 
     
 }
