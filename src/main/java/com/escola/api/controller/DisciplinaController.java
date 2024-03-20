@@ -35,6 +35,12 @@ public class DisciplinaController {
         .body(disciplinaRepository.findAll());
     }
 
+    @GetMapping("/{idDisciplina}")
+    public ResponseEntity<Optional<Disciplina>> buscarDisciplinaPeloId(@PathVariable("idDisciplina") Long idDisciplina) {
+        return ResponseEntity.status(HttpStatus.OK)
+        .body(disciplinaRepository.findById(idDisciplina));
+    }
+
     
 
     
