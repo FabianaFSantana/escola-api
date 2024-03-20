@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.escola.api.dto.MediaDto;
 import com.escola.api.model.Boletim;
 import com.escola.api.repository.BoletimRepository;
+import com.escola.api.service.BoletimService;
 
 @RestController
 @RequestMapping("/boletim")
@@ -24,6 +26,9 @@ public class BoletimController {
 
     @Autowired
     private BoletimRepository boletimRepository;
+
+    @Autowired
+    private BoletimService boletimService;
 
     @PostMapping
     public ResponseEntity<Boletim> cadastarDadosNoBoletim(@RequestBody Boletim boletim) {
@@ -68,6 +73,8 @@ public class BoletimController {
         .body("Boletim excluído com sucesso!");
 
     }
+
+   
 
 
 
