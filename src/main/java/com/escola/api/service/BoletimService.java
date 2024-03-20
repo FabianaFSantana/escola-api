@@ -30,6 +30,12 @@ public class BoletimService {
             Double novaMedia = (mediaDto.getNota1() + mediaDto.getNota2()) / 2;
             boletimEncontrado.setMedia(novaMedia);
 
+            if (novaMedia >= 7) {
+                boletimEncontrado.setResultado("aprovado");
+            } else {
+                boletimEncontrado.setResultado("Recuperação");
+            }
+
             boletimRepository.save(boletimEncontrado);
 
             return novaMedia;

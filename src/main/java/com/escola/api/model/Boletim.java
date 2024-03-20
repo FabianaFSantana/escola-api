@@ -28,5 +28,5 @@ public class Boletim {
     @Column(nullable = false)
     private double media;
 
-    private boolean resultado;
+    private String resultado;
 }
