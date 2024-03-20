@@ -74,7 +74,13 @@ public class BoletimController {
 
     }
 
-   
+    @PostMapping("/calcularMedia/{idBoletim}")
+    public ResponseEntity<Double> calcularMedia(@PathVariable("idBoletim") Long idBoletim, 
+    @RequestBody MediaDto mediaDto) {
+        Double novaMedia = boletimService.calcularMedia(idBoletim, mediaDto);
+        return ResponseEntity.status(HttpStatus.OK)
+        .body(novaMedia);
+    }
 
 
 
