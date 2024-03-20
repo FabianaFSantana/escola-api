@@ -24,5 +24,9 @@ public class Boletim {
 
     @Column(nullable = false)
     private double nota2;
+
+    @Column(nullable = false)
+    private double media;
+
     private boolean resultado;
 }
