@@ -35,6 +35,14 @@ public class BoletimController {
         return ResponseEntity.status(HttpStatus.CREATED)
         .body(boletimRepository.save(boletim));
     }
+    
+    @PostMapping("/calcularMedia/{idBoletim}")
+    public ResponseEntity<Double> calcularMedia(@PathVariable("idBoletim") Long idBoletim, 
+    @RequestBody MediaDto mediaDto) {
+        Double novaMedia = boletimService.calcularMedia(idBoletim, mediaDto);
+        return ResponseEntity.status(HttpStatus.OK)
+        .body(novaMedia);
+    }
 
     @GetMapping
     public ResponseEntity<List<Boletim>> exbirListaDeBoletins() {
@@ -58,6 +66,8 @@ public class BoletimController {
 
             boletimEncontrado.setNota1(boletim.getNota1());
             boletimEncontrado.setNota2(boletim.getNota2());
+            boletimEncontrado.setMedia(boletim.getMedia());
+            boletimEncontrado.setResultado(boletim.getResultado());
             
             return ResponseEntity.status(HttpStatus.OK)
             .body(boletimRepository.save(boletimEncontrado));
@@ -74,13 +84,7 @@ public class BoletimController {
 
     }
 
-    @PostMapping("/calcularMedia/{idBoletim}")
-    public ResponseEntity<Double> calcularMedia(@PathVariable("idBoletim") Long idBoletim, 
-    @RequestBody MediaDto mediaDto) {
-        Double novaMedia = boletimService.calcularMedia(idBoletim, mediaDto);
-        return ResponseEntity.status(HttpStatus.OK)
-        .body(novaMedia);
-    }
+    
 
 
 
