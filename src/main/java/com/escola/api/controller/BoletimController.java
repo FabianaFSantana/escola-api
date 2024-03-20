@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,7 +42,25 @@ public class BoletimController {
         .body(boletimRepository.findById(idBoletim));
     }
 
-    
+    @PutMapping("/{idBoletim}")
+    public ResponseEntity<Boletim> atualizarDadosDoBoletim(@PathVariable("idBoletim") Long idBoletim,
+    @RequestBody Boletim boletim) {
+        Optional<Boletim> boletimOptional = boletimRepository.findById(idBoletim);
+
+        if (boletimOptional.isPresent()) {
+            Boletim boletimEncontrado = boletimOptional.get();
+
+            boletimEncontrado.setNota1(boletim.getNota1());
+            boletimEncontrado.setNota2(boletim.getNota2());
+            
+            return ResponseEntity.status(HttpStatus.OK)
+            .body(boletimRepository.save(boletimEncontrado));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 
     
 }
