@@ -61,11 +61,19 @@ public class DisciplinaController {
         }
     }
 
+    //MÉTODO PARA DELETAR: 
     @DeleteMapping("/{idDisciplina}")
     public ResponseEntity<String> excluirDisciplina(@PathVariable("idDisciplina") Long idDisciplina) {
         disciplinaRepository.deleteById(idDisciplina);
         return ResponseEntity.status(HttpStatus.NO_CONTENT)
-        .body("Disciplina excluída com sucesso!");
+        .body("Disciplina DELETADA!");
+    }
+
+    @DeleteMapping
+    public ResponseEntity<String> excluirTodasDisciplinas() {
+        disciplinaRepository.deleteAll();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+        .body("Todas disciplinas canceladas.");
     }
 
     
