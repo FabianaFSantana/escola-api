@@ -68,6 +68,8 @@ public class BoletimController {
             boletimEncontrado.setNota2(boletim.getNota2());
             boletimEncontrado.setMedia(boletim.getMedia());
             boletimEncontrado.setResultado(boletim.getResultado());
+            boletimEncontrado.setAluno(boletim.getAluno());
+            boletimEncontrado.setDisciplina(boletim.getDisciplina());
             
             return ResponseEntity.status(HttpStatus.OK)
             .body(boletimRepository.save(boletimEncontrado));
