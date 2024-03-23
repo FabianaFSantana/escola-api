@@ -1,6 +1,6 @@
-package com.esolca.api.controller;
-import com.esolca.api.model.Comunicado;
-import com.esolca.api.repository.ComunicadoRepository;
+package com.escola.api.controller;
+import com.escola.api.model.Comunicado;
+import com.escola.api.repository.ComunicadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
