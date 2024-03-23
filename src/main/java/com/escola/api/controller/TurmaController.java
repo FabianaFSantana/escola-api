@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.escola.api.model.Aluno;
 import com.escola.api.model.Turma;
+import com.escola.api.repository.AlunoRepository;
 import com.escola.api.repository.TurmaRepository;
 
 @RestController
@@ -25,10 +27,41 @@ public class TurmaController {
     @Autowired
     private TurmaRepository turmaRepository;
 
+    @Autowired
+    private AlunoRepository alunoRepository;
+
     @PostMapping
     public ResponseEntity<Turma> cadastrarTurma(@RequestBody Turma turma) {
         return ResponseEntity.status(HttpStatus.CREATED)
         .body(turmaRepository.save(turma));
+    }
+
+    @PostMapping("/{idTurma}/adicionarAluno/{idAluno}")
+    public ResponseEntity<Turma> adicionarAlunoNaTurma(@PathVariable("idTurma") Long idTurma,
+    @PathVariable("idAluno") Long idAluno) {
+        Optional<Turma> turmOptional = turmaRepository.findById(idTurma);
+
+        if (turmOptional.isPresent()) {
+            Turma turmaEncontrada = turmOptional.get();
+
+            Optional<Aluno> alunoOptional = alunoRepository.findById(idAluno);
+
+            if (alunoOptional.isPresent()) {
+                Aluno alunoEncontrado = alunoOptional.get();
+
+                List<Aluno> alunos = turmaEncontrada.getAlunos();
+                alunos.add(alunoEncontrado);
+
+                turmaRepository.save(turmaEncontrada);
+
+                return ResponseEntity.ok(turmaEncontrada);
+                
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+            
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping
