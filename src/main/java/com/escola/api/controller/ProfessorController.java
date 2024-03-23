@@ -16,8 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.escola.api.model.Disciplina;
 import com.escola.api.model.Professor;
+import com.escola.api.model.Turma;
+import com.escola.api.repository.DisciplinaRepository;
 import com.escola.api.repository.ProfessorRepository;
+import com.escola.api.repository.TurmaRepository;
 
 
 @RestController
@@ -27,10 +31,39 @@ public class ProfessorController {
    @Autowired
    private ProfessorRepository professorRepository;
 
+   @Autowired
+   private DisciplinaRepository discipinaRepository;
+
    @PostMapping ("/professor")
    public ResponseEntity<Professor> cadastrarProfessor(@RequestBody Professor professor) {                                  
        return ResponseEntity.status(HttpStatus.CREATED)
        .body(professorRepository.save(professor));
+   }
+
+   @PostMapping("/{idProfessor}/adicionarDisciplinas/{idDisciplina}")
+   public ResponseEntity<Professor> adicionarDisciplinas(@PathVariable("idProfessor") Long idProfessor,
+   @PathVariable("idDisciplina") Long idDisciplina) {
+
+      Optional<Professor> profOptional = professorRepository.findById(idProfessor);
+
+      if (profOptional.isPresent()) {
+         Professor profEncontrado = profOptional.get();
+
+         Optional<Disciplina> disciplinaOptional =discipinaRepository.findById(idDisciplina);
+
+         if (disciplinaOptional.isPresent()) {
+            Disciplina disciplinaEsncontrada = disciplinaOptional.get();
+
+            List<Disciplina> disciplinas = profEncontrado.getDisciplinas();
+            disciplinas.add(disciplinaEsncontrada);
+
+            professorRepository.save(profEncontrado);
+            return ResponseEntity.ok(profEncontrado); 
+         } else {
+            return ResponseEntity.notFound().build();
+         }
+      }
+      return ResponseEntity.notFound().build();
    }
 
    @GetMapping
@@ -58,7 +91,7 @@ public class ProfessorController {
          profEncontrado.getUsuarioProfessor().setDataDeNascimento(professor.getUsuarioProfessor().getDataDeNascimento());
          profEncontrado.getUsuarioProfessor().setEmail(professor.getUsuarioProfessor().getEmail());
          profEncontrado.getUsuarioProfessor().setTelefone(professor.getUsuarioProfessor().getTelefone());
-         profEncontrado.setDisciplina(professor.getDisciplina());
+         
 
          return ResponseEntity.status(HttpStatus.OK)
          .body(professorRepository.save(profEncontrado));
