@@ -46,6 +46,8 @@ public class ComunicadoController {
             comunicadoAtualizado.setDescricao(comunicado.getDescricao());
             comunicadoAtualizado.setConfirmacaoleitura(comunicado.isConfirmacaoleitura());
             comunicadoAtualizado.setDataComunicado(comunicado.getDataComunicado());
+            comunicadoAtualizado.setCoordenacao(comunicado.getCoordenacao());
+            comunicadoAtualizado.setResponsavel(comunicado.getResponsavel());
 
 
             return ResponseEntity.status(HttpStatus.OK)
