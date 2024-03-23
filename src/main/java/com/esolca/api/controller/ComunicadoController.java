@@ -34,11 +34,11 @@ public class ComunicadoController {
                 .body(comunicadoRepository.findById(idComunidado));
 
     }
-}
+
 
     @PutMapping("/{idComunicado}")
     public ResponseEntity<Comunicado> atualizarDadosComunicado(@PathVariable("idComunicado") Long idComunicado, @RequestBody Comunicado comunicado) {
-        Optional<Comunicado> comunicadoOptional = comunicadoRepsitory.findById(idComunicado);
+        Optional<Comunicado> comunicadoOptional = comunicadoRepository.findById(idComunicado);
 
         if (comunicadoOptional.isPresent()) {
             Comunicado comunicadoAtualizado = comunicadoOptional.get();
@@ -55,14 +55,14 @@ public class ComunicadoController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-/*
+
     @DeleteMapping("/{idComunicado}")
     public ResponseEntity<String> excluirComunicado(@PathVariable("idComunicado") Long idComunicado) {
         comunicadoRepository.deleteById(idComunicado);
         return ResponseEntity.status(HttpStatus.NO_CONTENT)
                 .body("Comunicado removido com sucesso!");
     }
-
+}
 
 
 
