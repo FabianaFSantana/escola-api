@@ -23,9 +23,6 @@ public class Professor {
     @Embedded
     private Usuario usuarioProfessor;
 
-    @Column(length = 100)
-    private String professor;
-
     @Column(length = 50)
     private String disciplina;
 
