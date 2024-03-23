@@ -1,4 +1,4 @@
-package com.esolca.api.model;
+package com.escola.api.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;

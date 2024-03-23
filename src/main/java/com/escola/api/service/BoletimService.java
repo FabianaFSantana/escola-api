@@ -2,8 +2,6 @@ package com.escola.api.service;
 
 import java.util.Optional;
 
-import javax.print.attribute.standard.Media;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
