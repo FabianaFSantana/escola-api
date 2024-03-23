@@ -1,31 +1,31 @@
 package com.escola.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.escola.api.model.Professor;
 import com.escola.api.repository.ProfessorRepository;
 
-@Controller
+
 @RestController
-@RequestMapping ("/professor")
+@RequestMapping("/professor")
 public class ProfessorController {
 
-private Object professorRepository;
-@SuppressWarnings("unchecked")
-@PostMapping ("/salvarProfessor")
- public Professor cadastraProfessor(@RequestParam String nome, @RequestParam String disciplina) {     
-    Professor professor =  cadastraProfessor(nome, disciplina);                               
-       return ((CrudRepository<Professor, Long>) professorRepository).save(professor);
+   @Autowired
+   private ProfessorRepository professorRepository;
+
+   @PostMapping ("/professor")
+   public ResponseEntity<Professor> cadastrarProfessor(@RequestBody Professor professor) {                                  
+       return ResponseEntity.status(HttpStatus.CREATED)
+       .body(professorRepository.save(professor));
  }
  
 
-@SuppressWarnings("unused")
-@Autowired
-private ProfessorRepository professoRepository;
+
+
 }
