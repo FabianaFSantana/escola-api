@@ -1,5 +1,4 @@
 package com.esolca.api.controller;
-
 import com.esolca.api.model.Comunicado;
 import com.esolca.api.repository.ComunicadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,37 +34,37 @@ public class ComunicadoController {
                 .body(comunicadoRepository.findById(idComunidado));
 
     }
-}/*
+}
 
-    @PutMapping("/{idAluno}")
-    public ResponseEntity<Aluno> atualizarDadosAluno(@PathVariable("idAluno") Long idAluno, @RequestBody Aluno aluno) {
-        Optional<Aluno> alunoOptional = alunoRepository.findById(idAluno);
+    @PutMapping("/{idComunicado}")
+    public ResponseEntity<Comunicado> atualizarDadosComunicado(@PathVariable("idComunicado") Long idComunicado, @RequestBody Comunicado comunicado) {
+        Optional<Comunicado> comunicadoOptional = comunicadoRepsitory.findById(idComunicado);
 
-        if (alunoOptional.isPresent()) {
-            Aluno alunoAtualizado = alunoOptional.get();
+        if (comunicadoOptional.isPresent()) {
+            Comunicado comunicadoAtualizado = comunicadoOptional.get();
 
-            alunoAtualizado.getUsuarioAluno().setNome(aluno.getUsuarioAluno().getNome());
-            alunoAtualizado.getUsuarioAluno().setDataDeNascimento(aluno.getUsuarioAluno().getDataDeNascimento());
-            alunoAtualizado.getUsuarioAluno().setEmail(aluno.getUsuarioAluno().getEmail());
-            alunoAtualizado.getUsuarioAluno().setTelefone(aluno.getUsuarioAluno().getTelefone());
-            alunoAtualizado.setMatricula(aluno.getMatricula());
+            comunicadoAtualizado.setDescricao(comunicado.getDescricao());
+            comunicadoAtualizado.setConfirmacaoleitura(comunicado.isConfirmacaoleitura());
+            comunicadoAtualizado.setDataComunicado(comunicado.getDataComunicado());
+
 
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(alunoRepository.save(alunoAtualizado));
+                    .body(comunicadoRepository.save(comunicadoAtualizado));
 
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @DeleteMapping("/{idAluno}")
-    public ResponseEntity<String> excluirAluno(@PathVariable("idAluno") Long idAluno) {
-        alunoRepository.deleteById(idAluno);
+/*
+    @DeleteMapping("/{idComunicado}")
+    public ResponseEntity<String> excluirComunicado(@PathVariable("idComunicado") Long idComunicado) {
+        comunicadoRepository.deleteById(idComunicado);
         return ResponseEntity.status(HttpStatus.NO_CONTENT)
-                .body("Aluno removido com sucesso!");
+                .body("Comunicado removido com sucesso!");
     }
 
 
 
 
 
-}
+
