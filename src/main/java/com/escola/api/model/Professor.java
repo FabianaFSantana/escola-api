@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,11 +24,8 @@ public class Professor {
     @Embedded
     private Usuario usuarioProfessor;
 
-    @Column(length = 100)
-    private String professor;
-
-    @Column(length = 50)
-    private String disciplina;
+    @OneToMany
+    private Disciplina disciplina;
 
     
 }
