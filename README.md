@@ -24,7 +24,7 @@ cd escola=api
 3. Configure o banco de dados:
 Certifique-se de que um servidor MySQL esteja em execução e crie um banco de dados chamado "taskify".
 ```
-CREATE DATABASE taskify;
+CREATE DATABASE Escola-Api;
 ```
 4. Configure as propriedades do banco de dados:
 Se for o caso, edite o arquivo `src/main/resources/application.properties` e ajuste as configurações de conexão com o servidor MySQL:
