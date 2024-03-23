@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -43,7 +44,27 @@ public class ProfessorController {
       .body(professorRepository.findById(id));
    }
 
-   
+   @PutMapping("/{id}")
+   public ResponseEntity<Professor> atualizarDadosProfessor(@PathVariable("id") Long id,
+   @RequestBody Professor professor) {
+
+      Optional<Professor> profOptional = professorRepository.findById(id);
+
+      if (profOptional.isPresent()) {
+         Professor profEncontrado = profOptional.get();
+
+         profEncontrado.getUsuarioProfessor().setNome(professor.getUsuarioProfessor().getNome());
+         profEncontrado.getUsuarioProfessor().setDataDeNascimento(professor.getUsuarioProfessor().getDataDeNascimento());
+         profEncontrado.getUsuarioProfessor().setEmail(professor.getUsuarioProfessor().getEmail());
+         profEncontrado.getUsuarioProfessor().setTelefone(professor.getUsuarioProfessor().getTelefone());
+         profEncontrado.setDisciplina(professor.getDisciplina());
+
+         return ResponseEntity.status(HttpStatus.OK)
+         .body(professorRepository.save(profEncontrado));
+         
+      }
+      return ResponseEntity.notFound().build();
+   }
    
  
 
