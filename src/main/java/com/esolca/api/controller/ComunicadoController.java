@@ -21,20 +21,21 @@ public class ComunicadoController {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(comunicadoRepository.save(comunicado));
     }
-}
 
-    /*@GetMapping
-    public ResponseEntity<List<Aluno>> alunos() {
+
+    @GetMapping
+    public ResponseEntity<List<Comunicado>> comunicado() {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(alunoRepository.findAll());
+                .body(comunicadoRepository.findAll());
     }
 
-    @GetMapping("/{idAluno}")
-    public ResponseEntity<Optional<Aluno>> buscarAlunoPeloId(@PathVariable("idAluno") Long idAluno) {
+    @GetMapping("/{idComunidado}")
+    public ResponseEntity<Optional<Comunicado>> buscarComunicadoPeloId(@PathVariable("idComunicado") Long idComunidado) {
         return ResponseEntity.status(HttpStatus.OK)
-                .body(alunoRepository.findById(idAluno));
+                .body(comunicadoRepository.findById(idComunidado));
 
     }
+}/*
 
     @PutMapping("/{idAluno}")
     public ResponseEntity<Aluno> atualizarDadosAluno(@PathVariable("idAluno") Long idAluno, @RequestBody Aluno aluno) {
