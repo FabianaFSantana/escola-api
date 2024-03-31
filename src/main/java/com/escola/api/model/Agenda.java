@@ -28,9 +28,6 @@ public class Agenda {
     private LocalDate data;
 
     @Column(nullable = false)
-    private Disciplina disciplina;
-
-    @Column(nullable = false)
     private String conteudoDaAula;
 
     @Column(nullable = false)
