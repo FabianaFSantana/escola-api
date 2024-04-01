@@ -31,6 +31,7 @@ public class AgendaController {
         .body(agendaRepository.save(agenda));
     }
 
+ 
     @GetMapping
     public ResponseEntity<List<Agenda>> exibirListaDeAgendas() {
         return ResponseEntity.status(HttpStatus.OK)
@@ -43,7 +44,7 @@ public class AgendaController {
         .body(agendaRepository.findById(idAgenda));
     }
 
-    @PutMapping("/{idAgnda}")
+    @PutMapping("/{idAgenda}")
     public ResponseEntity<Agenda> atualizarAgenda(@PathVariable("idAgenda") Long idAgenda,
     @RequestBody Agenda agenda) {
         Optional<Agenda> agendOptional = agendaRepository.findById(idAgenda);

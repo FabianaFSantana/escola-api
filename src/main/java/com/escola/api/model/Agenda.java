@@ -33,18 +33,5 @@ public class Agenda {
     @Column(nullable = false)
     private String atividadeDeCasa;
 
-    /*
-     * @Override
-     * public String toString() {
-     * return "Agenda{" +
-     * "id=" + id +
-     * ", data =' " + data + '\'' +
-     * ", disciplina =' " + disciplina + '\'' +
-     * ", conteudoAula = '" + conteudoAula + '\'' +
-     * ", atividadeCasa =' " + atividadeCasa + '\'' +
-     * '}';
-     * 
-     * 
-     * }
-     */
+
 }

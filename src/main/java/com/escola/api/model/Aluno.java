@@ -4,6 +4,8 @@ package com.escola.api.model;
 
 
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -31,7 +33,12 @@ public class Aluno {
     @Column(nullable = false, unique = true)
     private long matricula;
 
-   
+    @OneToMany
+    private List<Agenda> agendAlunos;
+
+ 
+
+
 
    
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.escola.api.model.Aluno;
 import com.escola.api.repository.AlunoRepository;
+import com.escola.api.service.AgendaService;
 
 @RestController
 @RequestMapping("/aluno")
@@ -25,10 +26,22 @@ public class AlunoController {
     @Autowired
     private AlunoRepository alunoRepository;
 
+    @Autowired
+    private AgendaService agendaService;
+
     @PostMapping
     public ResponseEntity<Aluno> cadastrarAluno(@RequestBody Aluno aluno) {
         return ResponseEntity.status(HttpStatus.CREATED)
         .body(alunoRepository.save(aluno));
+    }
+
+    @PostMapping("/{idAluno}/associarAlunoAgenda/{idAgenda}")
+    public ResponseEntity<String> associarAlunoAgenda(@PathVariable("idAluno") Long idAluno,
+    @PathVariable("idAgenda") Long idAgenda) {
+
+        agendaService.associarAgendaAluno(idAluno, idAgenda);
+        return ResponseEntity.status(HttpStatus.OK)
+        .body("Aluno associado a agenda com sucesso!");
     }
 
     @GetMapping
