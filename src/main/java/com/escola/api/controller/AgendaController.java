@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.escola.api.model.Agenda;
 import com.escola.api.repository.AgendaRepository;
+import com.escola.api.service.AgendaService;
 
 @RestController
 @RequestMapping("/agenda")
@@ -25,10 +26,15 @@ public class AgendaController {
     @Autowired
     private AgendaRepository agendaRepository;
 
-    @PostMapping
-    public ResponseEntity<Agenda> cadastrarAgendaDoDia(@RequestBody Agenda agenda) {
+    @Autowired
+    private AgendaService agendaService;
+
+    @PostMapping("/{idProfessor}")
+    public ResponseEntity<String> cadastrarAgendaDoDia(@PathVariable("idProfessor") Long idProfessor,
+    @RequestBody Agenda novaAgenda) {
+        agendaService.criarAgenda(idProfessor, novaAgenda);
         return ResponseEntity.status(HttpStatus.CREATED)
-        .body(agendaRepository.save(agenda));
+        .body("Agenda criada com sucesso.");
     }
 
  
