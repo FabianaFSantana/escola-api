@@ -8,10 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.escola.api.model.Agenda;
 import com.escola.api.model.Aluno;
+import com.escola.api.model.Professor;
 import com.escola.api.repository.AgendaRepository;
 import com.escola.api.repository.AlunoRepository;
+import com.escola.api.repository.ProfessorRepository;
 
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class AgendaService {
@@ -21,6 +22,9 @@ public class AgendaService {
 
     @Autowired
     private AgendaRepository agendaRepository;
+
+    @Autowired
+    private ProfessorRepository professorRepository;
 
     public void associarAgendaAluno(Long idAluno, Long idAgenda) {
 
@@ -63,6 +67,26 @@ public class AgendaService {
         throw new RuntimeException("Erro ao associar aluno à agenda.");
         
     }
+
+    public void criarAgenda(Long idProfessor, Agenda novAgenda) {
+        Optional<Professor> profOptional = professorRepository.findById(idProfessor);
+
+        if (profOptional.isPresent()) {
+            Professor profEncontrado = profOptional.get();
+            novAgenda.setProfessor(profEncontrado);
+            agendaRepository.save(novAgenda);
+            
+        } else {
+            throw new RuntimeException("Professor não encontrado.");
+        }
+
+    }
+
+    public List<Agenda> listarAgendas() {
+        return agendaRepository.findAll();
+    }
+
+   
 
     
     
