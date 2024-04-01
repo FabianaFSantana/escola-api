@@ -1,7 +1,10 @@
 package com.escola.api.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -82,9 +85,18 @@ public class AgendaService {
 
     }
 
-    public List<Agenda> listarAgendas() {
-        return agendaRepository.findAll();
+    public List<Agenda> listarAgendasDisponíveisParaAluno() {
+        List<Agenda> todasAsAgendas = agendaRepository.findAll();
+       
+        LocalDate dataAtual = LocalDate.now();
+        List<Agenda> agendasDisponiveis = todasAsAgendas.stream()
+        .filter(agenda -> agenda.getData().isAfter(dataAtual))
+        .collect(Collectors.toList());
+
+        return agendasDisponiveis;
     }
+
+    
 
    
 

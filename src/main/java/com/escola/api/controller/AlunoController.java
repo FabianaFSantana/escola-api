@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.escola.api.model.Agenda;
 import com.escola.api.model.Aluno;
 import com.escola.api.repository.AlunoRepository;
 import com.escola.api.service.AgendaService;
@@ -55,6 +56,12 @@ public class AlunoController {
         return ResponseEntity.status(HttpStatus.OK)
         .body(alunoRepository.findById(idAluno));
        
+    }
+
+    @GetMapping("/agendas")
+    public ResponseEntity<List<Agenda>> mostrarAgendasDisponiveisParaOsAlunos() {
+        List<Agenda> agendas = agendaService.listarAgendasDisponíveisParaAluno();
+        return ResponseEntity.ok(agendas);
     }
 
     @PutMapping("/{idAluno}")
