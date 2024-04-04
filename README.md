@@ -1,4 +1,5 @@
 # escola-api
+Api Rest para um app escolar para a interação entre alunos, pais, professores e coordenação.
 
 ## Descrição do Projeto
 O Escola-App é uma API REST desenvolvida com Spring Boot para servir como backend de uma aplicação de gerenciamento de tarefas escolares, registros de notas e comunicados entre Escola e Pai. Ele oferece recursos para manipulação de usuários, agenda, boletim e envio de comunicados para os responsáveis dos alunos, proporcionando uma interface para interação com o banco de dados MySQL.
